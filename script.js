@@ -30,7 +30,7 @@ const micBtn = document.getElementById('mic-btn');
 const chips = document.querySelectorAll('.chip');
 
 // State
-let geminiApiKey = 'AIzaSyDdUgcvrugYzxkuILCVnidPSJbVzm55m14';
+let geminiApiKey = 'AIzaSyDRVXG3wguTFp-yQXUEAiVJVA9ESrEOvpo';
 let isWaitingForResponse = false;
 let chatHistory = [];
 let selectedImage = null; // Store { mimeType, data (base64) }
