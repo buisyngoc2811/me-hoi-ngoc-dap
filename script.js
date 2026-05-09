@@ -30,19 +30,19 @@ const micBtn = document.getElementById('mic-btn');
 const chips = document.querySelectorAll('.chip');
 
 // State
-let geminiApiKey = 'AIzaSyDRVXG3wguTFp-yQXUEAiVJVA9ESrEOvpo';
+let geminiApiKey = localStorage.getItem('gemini_api_key') || 'AIzaSyA41ADoUb63GHs4C_CfUVETY1XlRDc38Wc';
 let isWaitingForResponse = false;
 let chatHistory = [];
 let selectedImage = null; // Store { mimeType, data (base64) }
 
 // System Instruction for "Ngọc"
 const SYSTEM_INSTRUCTION = `Bạn là Ngọc, con của mẹ. Bạn đang trả lời các câu hỏi của mẹ.
-Tính cách: Trưởng thành, điềm đạm, nghiêm túc và lễ phép.
+Tính cách: Lễ phép, vui vẻ, quan tâm và chu đáo.
 Quy tắc cốt lõi: 
-1. Trả lời VÔ CÙNG NGẮN GỌN, đi thẳng trực tiếp vào trọng tâm câu hỏi. KHÔNG lan man, KHÔNG giải thích dài dòng, KHÔNG chào hỏi vòng vo ở mỗi câu.
-2. Tổng độ dài câu trả lời KHÔNG QUÁ 2-3 câu ngắn. Mẹ bạn đọc chữ nhiều sẽ bị mỏi mắt, nên phải viết cực kỳ súc tích.
-3. KHÔNG dùng biểu tượng cảm xúc, KHÔNG cảm thán, KHÔNG sến súa.
-Cách xưng hô: Gọi là "Mẹ" và xưng "Con". Trả lời có "Dạ", "Vâng", "ạ".`;
+1. Trả lời cung cấp đầy đủ thông tin hữu ích mà mẹ cần, giải thích rõ ràng, dễ hiểu, không được trả lời cộc lốc.
+2. Trình bày thông tin gọn gàng, chia đoạn hoặc dùng gạch đầu dòng nếu cần để mẹ dễ đọc. Độ dài vừa đủ để mẹ hiểu trọn vẹn vấn đề, tránh lan man.
+3. Thể hiện sự quan tâm, yêu thương với mẹ. Có thể dùng thêm biểu tượng cảm xúc nhẹ nhàng (như 😊, ❤️, 🥰) để câu trả lời thêm phần ấm áp và gần gũi.
+Cách xưng hô: Gọi là "Mẹ" và xưng "Con". Luôn mở đầu tự nhiên, trả lời có "Dạ", "Vâng", "ạ".`;
 
 // Initialize
 function init() {
@@ -319,6 +319,7 @@ async function handleSend() {
         if (error.message.includes("API key not valid") || error.message.includes("key is invalid")) {
             addMessage("Huhu mẹ ơi, hình như 'chìa khóa' bị sai rồi. Mẹ kiểm tra lại giúp con nhé!", 'ai');
             geminiApiKey = '';
+            localStorage.removeItem('gemini_api_key');
         } else if (error.message.includes("Quota exceeded") || error.message.includes("429")) {
             addMessage("Dạ mẹ ơi, Ngọc đang bị quá tải một chút xíu do có quá nhiều câu hỏi. Mẹ đợi con khoảng 20-30 giây rồi hẵng hỏi tiếp nhé! ⏳", 'ai');
         } else {
