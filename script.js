@@ -174,8 +174,20 @@ micBtn.addEventListener('click', () => {
         recognition.stop();
     } else {
         if (recognition) {
+            // Check for file protocol which blocks microphone
+            if (window.location.protocol === 'file:') {
+                alert('Tính năng Micro bị trình duyệt chặn khi mở file trực tiếp. Bạn cần đưa web lên mạng (Vercel/Netlify) hoặc dùng Live Server thì mới nói được nhé!');
+                return;
+            }
+            
             userInput.value = '';
-            recognition.start();
+            try {
+                recognition.start();
+            } catch (e) {
+                console.error("Không thể khởi động micro:", e);
+                micBtn.classList.remove('recording');
+                userInput.placeholder = "Mẹ hỏi con gì đi...";
+            }
         } else {
             alert('Trình duyệt của mẹ không hỗ trợ giọng nói ạ!');
         }
