@@ -319,7 +319,8 @@ async function handleSend() {
         if (error.message.includes("API key not valid") || error.message.includes("key is invalid")) {
             addMessage("Huhu mẹ ơi, hình như 'chìa khóa' bị sai rồi. Mẹ kiểm tra lại giúp con nhé!", 'ai');
             geminiApiKey = '';
-            localStorage.removeItem('gemini_api_key');
+        } else if (error.message.includes("Quota exceeded") || error.message.includes("429")) {
+            addMessage("Dạ mẹ ơi, Ngọc đang bị quá tải một chút xíu do có quá nhiều câu hỏi. Mẹ đợi con khoảng 20-30 giây rồi hẵng hỏi tiếp nhé! ⏳", 'ai');
         } else {
             addMessage(`LỖI HỆ THỐNG: ${error.message}. Mẹ chụp ảnh màn hình lỗi này gửi cho thợ nhé!`, 'ai');
         }
