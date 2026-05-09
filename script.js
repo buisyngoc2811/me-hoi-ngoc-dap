@@ -317,12 +317,11 @@ async function handleSend() {
         isWaitingForResponse = false;
         
         if (error.message.includes("API key not valid") || error.message.includes("key is invalid")) {
-            addMessage("Huhu mẹ ơi, hình như 'chìa khóa' mẹ đưa con bị sai rồi hoặc hết hạn rồi ạ. Mẹ kiểm tra lại giúp con nhé! 😭", 'ai');
+            addMessage("Huhu mẹ ơi, hình như 'chìa khóa' bị sai rồi. Mẹ kiểm tra lại giúp con nhé!", 'ai');
             geminiApiKey = '';
             localStorage.removeItem('gemini_api_key');
-            setTimeout(() => apiModal.classList.remove('hidden'), 2000);
         } else {
-            addMessage("Ối dồi ôi, não con đang bị lag chút xíu. Mẹ hỏi lại con câu khác được không ạ? 🥴", 'ai');
+            addMessage(`LỖI HỆ THỐNG: ${error.message}. Mẹ chụp ảnh màn hình lỗi này gửi cho thợ nhé!`, 'ai');
         }
     }
 }
